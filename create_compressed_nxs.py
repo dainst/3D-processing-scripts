@@ -30,12 +30,12 @@ def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
   nxs_ms = pymeshlab.MeshSet()
   nxs_ms.nxs_build(
     input_file=f"{temp_path}/{file_name_without_extension}.ply",
-    output_file=f"{temp_path}/{file_name_without_extension}_uncompressed.nxs"
+    output_file=f"{temp_path}/{file_name_without_extension}.nxs"
   )
 
   nxs_ms.nxs_compress(
-    input_file=f"{temp_path}/{file_name_without_extension}_uncompressed.nxs",
-    output_file=f"{output_path}/{file_name_without_extension}.nxs"
+    input_file=f"{temp_path}/{file_name_without_extension}.nxs",
+    output_file=f"{output_path}/{file_name_without_extension}.nxz"
   )
 
   if not keep_intermediate_files:
@@ -49,7 +49,7 @@ def evaluate_input_file_list(path: str):
 
     for root, dirnames, filenames in os.walk(path):
       for filename in filenames:
-        if filename.endswith('.obj'):
+        if filename.endswith('.obj') or filename.endswith('.ply'):
             file_list.append(os.path.join(root, filename))
 
     return file_list
