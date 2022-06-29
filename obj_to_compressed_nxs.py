@@ -10,7 +10,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 logging.basicConfig(format='%(asctime)s-%(levelname)s-%(name)s - %(message)s')
 
 
-def process_obj_file(file_path: str, keep_intermediate_files: bool):
+def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
 
   output_path =  os.path.dirname(file_path)
 
