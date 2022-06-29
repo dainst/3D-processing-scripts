@@ -10,7 +10,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 logging.basicConfig(format='%(asctime)s-%(levelname)s-%(name)s - %(message)s')
 
 
-def process_mesh(file_path: str, keep_intermediate_files: bool):
+def process_obj_file(file_path: str, keep_intermediate_files: bool):
 
   output_path =  os.path.dirname(file_path)
 
@@ -72,4 +72,4 @@ if __name__ == '__main__':
 
   for file in options['source']:
     logger.info(f"  '{file}'")
-    process_mesh(file, options['keep'])
+    process_obj_file(file, options['keep'])
