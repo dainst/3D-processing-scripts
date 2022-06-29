@@ -57,9 +57,9 @@ def evaluate_input_file_list(path: str):
     raise argparse.ArgumentTypeError(f"{path} is no valid input path.")
 
 
-parser = argparse.ArgumentParser(description='Transform Wavefront OBJ files (.obj) into compressed Nexus (.nxs) files.')
+parser = argparse.ArgumentParser(description='Transform Wavefront OBJ files (.obj) or Polygon File Format (.ply) into compressed Nexus (.nxs) files.')
 
-parser.add_argument('-s', '--source', type=evaluate_input_file_list, required=True, help="Specificy input directory or file path.")
+parser.add_argument('-s', '--source', type=evaluate_input_file_list, required=True, help="Specificy either an input directory or the path to a single file.")
 parser.add_argument('-k', '--keep', default=False, action='store_true', help="(Optional) Keep intermediate results in tmp/ directory next to the input files.")
 
 if __name__ == '__main__':
