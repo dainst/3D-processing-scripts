@@ -9,3 +9,8 @@ This tool enables to check a 3D model in preparation to be published online.
 
 ### Output/Receipt (Example)
 ![Example](https://github.com/dainst/3D-integrity-check/blob/main/OutputJSON.png)
+
+
+### Background
+
+See [Qualitätssicherung von 3D-Modellen für die Online-Publikation](https://publications.dainst.org/journals/FdAI/article/view/3681/7432).
