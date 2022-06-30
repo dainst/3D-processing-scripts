@@ -42,11 +42,11 @@ def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
     shutil.rmtree(temp_path)
 
 def evaluate_input_file_list(path: str):
+
   if os.path.isfile(path):
     return [path]
   elif os.path.isdir(path):
     file_list = []
-
     for root, dirnames, filenames in os.walk(path):
       for filename in filenames:
         if filename.endswith('.obj') or filename.endswith('.ply'):
@@ -57,7 +57,7 @@ def evaluate_input_file_list(path: str):
     raise argparse.ArgumentTypeError(f"{path} is no valid input path.")
 
 
-parser = argparse.ArgumentParser(description='Transform Wavefront OBJ files (.obj) or Polygon File Format (.ply) into compressed Nexus (.nxz) files.')
+parser = argparse.ArgumentParser(description='Transform Wavefront OBJ files (.obj) or Polygon File Format (.ply) into compressed Nexus (.nxz) files. See also http://vcg.isti.cnr.it/nexus.')
 
 parser.add_argument('-s', '--source', type=evaluate_input_file_list, required=True, help="Specificy either an input directory or the path to a single file.")
 parser.add_argument('-k', '--keep', default=False, action='store_true', help="(Optional) Keep intermediate results in tmp/ directory next to the input files.")
