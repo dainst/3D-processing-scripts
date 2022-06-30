@@ -1,0 +1,1 @@
+nxscompress gargo.nxs -o gargo.nxz
