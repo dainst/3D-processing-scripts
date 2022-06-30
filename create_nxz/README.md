@@ -1,6 +1,6 @@
 # Compressed Nexus file generator
 
-Transform Wavefront OBJ files (.obj) or Polygon File Format (.ply) into compressed Nexus (.nxz) files.' See also http://vcg.isti.cnr.it/nexus.
+Transform Wavefront OBJ files (.obj) or Polygon File Format (.ply) into compressed Nexus (.nxz) files. See also http://vcg.isti.cnr.it/nexus.
 
 ## Python 3 dependency requirements
 * pymeshlab==2022.2.post2
