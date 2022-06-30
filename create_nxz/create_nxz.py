@@ -21,25 +21,29 @@ def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
 
   file_name_without_extension = os.path.splitext(os.path.basename(file_path))[0]
 
-  ms = pymeshlab.MeshSet()
-  ms.load_new_mesh(file_path)
-  ms.compute_color_from_texture_per_vertex()
+  try: 
+    ms = pymeshlab.MeshSet()
+    ms.load_new_mesh(file_path)
+    ms.compute_color_from_texture_per_vertex()
+    ms.save_current_mesh(f"{temp_path}/{file_name_without_extension}.ply", save_textures=False, save_wedge_texcoord=False)
 
-  ms.save_current_mesh(f"{temp_path}/{file_name_without_extension}.ply", save_textures=False, save_wedge_texcoord=False)
+    nxs_ms = pymeshlab.MeshSet()
+    nxs_ms.nxs_build(
+      input_file=f"{temp_path}/{file_name_without_extension}.ply",
+      output_file=f"{temp_path}/{file_name_without_extension}.nxs"
+    )
 
-  nxs_ms = pymeshlab.MeshSet()
-  nxs_ms.nxs_build(
-    input_file=f"{temp_path}/{file_name_without_extension}.ply",
-    output_file=f"{temp_path}/{file_name_without_extension}.nxs"
-  )
-
-  nxs_ms.nxs_compress(
-    input_file=f"{temp_path}/{file_name_without_extension}.nxs",
-    output_file=f"{output_path}/{file_name_without_extension}.nxz"
-  )
-
-  if not keep_intermediate_files:
-    shutil.rmtree(temp_path)
+    nxs_ms.nxs_compress(
+      input_file=f"{temp_path}/{file_name_without_extension}.nxs",
+      output_file=f"{output_path}/{file_name_without_extension}.nxz"
+    )
+    
+  except Exception as e:
+    logger.error(e)
+  
+  finally:
+    if not keep_intermediate_files:
+      shutil.rmtree(temp_path)
 
 def evaluate_input_file_list(path: str):
 
@@ -70,6 +74,6 @@ if __name__ == '__main__':
   else:
     logger.info(f"No obj files found.")
 
-  for file in options['source']:
-    logger.info(f"  '{file}'")
-    process_obj_file(file, options['keep'])
+  for file_path in options['source']:
+    logger.info(f"'{file_path}'")
+    process_obj_file(file_path, options['keep'])
