@@ -9,6 +9,7 @@ logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logging.basicConfig(format='%(asctime)s-%(levelname)s-%(name)s - %(message)s')
 
+p = pymeshlab.Percentage(0.1)
 
 def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
 
@@ -21,12 +22,19 @@ def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
 
   file_name_without_extension = os.path.splitext(os.path.basename(file_path))[0]
 
-  try: 
+  try:
     ms = pymeshlab.MeshSet()
+    # Laden des Modelles
     ms.load_new_mesh(file_path)
+    # Filter:
+    # Erhoehen der Punktdichte
+    ms.meshing_surface_subdivision_midpoint(threshold=p)
+    # Uebertrag der Farben der Textur auf die Punkte
     ms.compute_color_from_texture_per_vertex()
+    # Speichern des Modells als PLY
     ms.save_current_mesh(f"{temp_path}/{file_name_without_extension}.ply", save_textures=False, save_wedge_texcoord=False)
 
+    # Nexus Konvertierung
     nxs_ms = pymeshlab.MeshSet()
     nxs_ms.nxs_build(
       input_file=f"{temp_path}/{file_name_without_extension}.ply",
@@ -37,10 +45,10 @@ def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
       input_file=f"{temp_path}/{file_name_without_extension}.nxs",
       output_file=f"{output_path}/{file_name_without_extension}.nxz"
     )
-    
+
   except Exception as e:
     logger.error(e)
-  
+
   finally:
     if not keep_intermediate_files:
       shutil.rmtree(temp_path)
