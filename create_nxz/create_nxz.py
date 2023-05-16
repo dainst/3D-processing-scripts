@@ -27,6 +27,8 @@ def process_obj_file(file_path: str, keep_intermediate_files: bool=False):
     # Laden des Modelles
     ms.load_new_mesh(file_path)
     # Filter:
+    # Texture Map Defragmentation
+    ms.apply_texmap_defragmentation()
     # Erhoehen der Punktdichte
     ms.meshing_surface_subdivision_midpoint(threshold=p)
     # Uebertrag der Farben der Textur auf die Punkte
