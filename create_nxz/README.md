@@ -28,7 +28,7 @@ The script will create a `.nxz` file alongside each `.obj` or `.ply` file it fin
 To run different filter to change for example the orientation of the model or edit the texture in order to prepare the file for a correct conversion comment or uncomment the appropriate filter or add a new filter.
 Example:
 ```bash
-Uebertrag der Farben der Textur auf die Punkte
+#Uebertrag der Farben der Textur auf die Punkte
 # ms.compute_color_from_texture_per_vertex()
 # Texture Map Defragmentation
 ms.apply_texmap_defragmentation()
